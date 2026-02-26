@@ -1,0 +1,2659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PM-KISAN Policy Clarification Framework</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap');
+
+        :root {
+            --primary-deep: #0a1628;
+            --primary-dark: #0f2041;
+            --primary-mid: #1a3a6b;
+            --primary: #2563eb;
+            --primary-light: #3b82f6;
+            --primary-glow: #60a5fa;
+            --accent-gold: #f59e0b;
+            --accent-gold-light: #fbbf24;
+            --accent-amber: #d97706;
+            --accent-emerald: #10b981;
+            --accent-emerald-dark: #059669;
+            --accent-teal: #14b8a6;
+            --accent-rose: #f43f5e;
+            --accent-violet: #8b5cf6;
+            --surface-1: #ffffff;
+            --surface-2: #f8fafc;
+            --surface-3: #f1f5f9;
+            --surface-4: #e2e8f0;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --text-inverse: #f8fafc;
+            --gradient-hero: linear-gradient(135deg, #0a1628 0%, #1a3a6b 40%, #2563eb 100%);
+            --gradient-gold: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            --gradient-card: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+            --gradient-emerald: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            --gradient-accent: linear-gradient(135deg, #2563eb 0%, #8b5cf6 100%);
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.08), 0 8px 10px -6px rgba(0,0,0,0.04);
+            --shadow-2xl: 0 25px 50px -12px rgba(0,0,0,0.15);
+            --shadow-glow: 0 0 40px rgba(37,99,235,0.15);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --radius-2xl: 32px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text-primary);
+            background: var(--surface-2);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* ===== NAVIGATION ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 22, 40, 0.85);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .navbar.scrolled {
+            background: rgba(10, 22, 40, 0.95);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+        }
+
+        .navbar-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .nav-brand-icon {
+            width: 42px;
+            height: 42px;
+            background: var(--gradient-gold);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--primary-deep);
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+        }
+
+        .nav-brand-text {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-inverse);
+            letter-spacing: -0.02em;
+        }
+
+        .nav-brand-text span {
+            color: var(--accent-gold-light);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.875rem;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+            background: rgba(255,255,255,0.08);
+        }
+
+        .nav-links a.active {
+            color: var(--accent-gold-light);
+        }
+
+        .nav-cta {
+            background: var(--gradient-gold) !important;
+            color: var(--primary-deep) !important;
+            font-weight: 600 !important;
+            padding: 8px 20px !important;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.25);
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.35) !important;
+            background: var(--gradient-gold) !important;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+            background: none;
+            border: none;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background: #fff;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: var(--gradient-hero);
+            overflow: hidden;
+            padding-top: 72px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse 800px 600px at 20% 50%, rgba(37, 99, 235, 0.15) 0%, transparent 70%),
+                radial-gradient(ellipse 600px 400px at 80% 30%, rgba(139, 92, 246, 0.1) 0%, transparent 70%),
+                radial-gradient(ellipse 400px 300px at 60% 80%, rgba(245, 158, 11, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 50%;
+            animation: float-particle linear infinite;
+        }
+
+        @keyframes float-particle {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(720deg); opacity: 0; }
+        }
+
+        .hero-grid-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+        }
+
+        .hero-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(245, 158, 11, 0.12);
+            border: 1px solid rgba(245, 158, 11, 0.25);
+            color: var(--accent-gold-light);
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 6px 16px;
+            border-radius: 100px;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .hero-badge-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.5); }
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            color: #fff;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-title .highlight {
+            background: linear-gradient(135deg, var(--accent-gold-light), var(--accent-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+            max-width: 540px;
+            font-weight: 400;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            letter-spacing: -0.01em;
+        }
+
+        .btn-primary {
+            background: var(--gradient-gold);
+            color: var(--primary-deep);
+            box-shadow: 0 4px 20px rgba(245, 158, 11, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(245, 158, 11, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.15);
+            border-color: rgba(255,255,255,0.25);
+            transform: translateY(-2px);
+        }
+
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .hero-card-stack {
+            position: relative;
+            width: 100%;
+            max-width: 460px;
+        }
+
+        .hero-stat-card {
+            background: rgba(255,255,255,0.06);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            margin-bottom: 1rem;
+            transition: all 0.4s ease;
+        }
+
+        .hero-stat-card:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-4px);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .stat-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 1rem;
+        }
+
+        .stat-card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+        }
+
+        .stat-card-icon.gold { background: rgba(245, 158, 11, 0.15); }
+        .stat-card-icon.emerald { background: rgba(16, 185, 129, 0.15); }
+        .stat-card-icon.blue { background: rgba(37, 99, 235, 0.15); }
+
+        .stat-card-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.5);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .stat-card-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -0.02em;
+        }
+
+        .stat-card-value .currency {
+            font-size: 1.4rem;
+            color: var(--accent-gold-light);
+        }
+
+        .stat-card-detail {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
+            margin-top: 0.5rem;
+        }
+
+        .stat-card-bar {
+            height: 4px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+
+        .stat-card-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            animation: barFill 2s ease-out forwards;
+        }
+
+        .stat-card-bar-fill.gold { background: var(--gradient-gold); width: 100%; }
+        .stat-card-bar-fill.emerald { background: var(--gradient-emerald); width: 75%; }
+        .stat-card-bar-fill.blue { background: var(--gradient-accent); width: 90%; }
+
+        @keyframes barFill {
+            from { transform: scaleX(0); transform-origin: left; }
+            to { transform: scaleX(1); transform-origin: left; }
+        }
+
+        /* ===== SECTIONS COMMON ===== */
+        .section {
+            padding: 6rem 2rem;
+        }
+
+        .section-container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .section-label-line {
+            width: 24px;
+            height: 2px;
+            background: var(--gradient-accent);
+            border-radius: 2px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 640px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* ===== ABOUT SECTION ===== */
+        .about-section {
+            background: var(--surface-1);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-content h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .about-content p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .about-features {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .about-feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 1rem;
+            background: var(--surface-2);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--surface-4);
+            transition: all 0.3s ease;
+        }
+
+        .about-feature-item:hover {
+            background: var(--surface-1);
+            box-shadow: var(--shadow-md);
+            border-color: rgba(37, 99, 235, 0.15);
+            transform: translateX(4px);
+        }
+
+        .about-feature-icon {
+            width: 40px;
+            height: 40px;
+            min-width: 40px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        .about-feature-icon.gold { background: rgba(245, 158, 11, 0.1); }
+        .about-feature-icon.emerald { background: rgba(16, 185, 129, 0.1); }
+        .about-feature-icon.blue { background: rgba(37, 99, 235, 0.1); }
+        .about-feature-icon.violet { background: rgba(139, 92, 246, 0.1); }
+
+        .about-feature-text h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .about-feature-text p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0;
+            line-height: 1.6;
+        }
+
+        .about-visual {
+            position: relative;
+        }
+
+        .about-info-card {
+            background: var(--gradient-hero);
+            border-radius: var(--radius-xl);
+            padding: 2.5rem;
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-info-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -30%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(245, 158, 11, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .about-info-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .about-info-list {
+            list-style: none;
+            position: relative;
+        }
+
+        .about-info-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.85);
+        }
+
+        .about-info-list li:last-child {
+            border-bottom: none;
+        }
+
+        .about-info-list li .check {
+            color: var(--accent-gold-light);
+            font-size: 1.1rem;
+            margin-top: 2px;
+        }
+
+        /* ===== PURPOSE SECTION ===== */
+        .purpose-section {
+            background: var(--surface-2);
+            position: relative;
+        }
+
+        .purpose-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--surface-4), transparent);
+        }
+
+        .purpose-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .purpose-card {
+            background: var(--surface-1);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            border: 1px solid var(--surface-4);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .purpose-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            border-radius: 3px 3px 0 0;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .purpose-card:nth-child(1)::before { background: var(--gradient-gold); }
+        .purpose-card:nth-child(2)::before { background: var(--gradient-emerald); }
+        .purpose-card:nth-child(3)::before { background: var(--gradient-accent); }
+        .purpose-card:nth-child(4)::before { background: linear-gradient(135deg, #f43f5e, #e11d48); }
+        .purpose-card:nth-child(5)::before { background: linear-gradient(135deg, #14b8a6, #0d9488); }
+        .purpose-card:nth-child(6)::before { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+
+        .purpose-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-xl);
+            border-color: transparent;
+        }
+
+        .purpose-card:hover::before {
+            opacity: 1;
+        }
+
+        .purpose-card-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .purpose-card:nth-child(1) .purpose-card-icon { background: rgba(245, 158, 11, 0.1); }
+        .purpose-card:nth-child(2) .purpose-card-icon { background: rgba(16, 185, 129, 0.1); }
+        .purpose-card:nth-child(3) .purpose-card-icon { background: rgba(37, 99, 235, 0.1); }
+        .purpose-card:nth-child(4) .purpose-card-icon { background: rgba(244, 63, 94, 0.1); }
+        .purpose-card:nth-child(5) .purpose-card-icon { background: rgba(20, 184, 166, 0.1); }
+        .purpose-card:nth-child(6) .purpose-card-icon { background: rgba(139, 92, 246, 0.1); }
+
+        .purpose-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .purpose-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ===== ELIGIBILITY SECTION ===== */
+        .eligibility-section {
+            background: var(--surface-1);
+        }
+
+        .eligibility-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .eligibility-panel {
+            border-radius: var(--radius-xl);
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .eligibility-panel.eligible {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(16, 185, 129, 0.02));
+            border: 1px solid rgba(16, 185, 129, 0.15);
+        }
+
+        .eligibility-panel.excluded {
+            background: linear-gradient(135deg, rgba(244, 63, 94, 0.05), rgba(244, 63, 94, 0.02));
+            border: 1px solid rgba(244, 63, 94, 0.15);
+        }
+
+        .eligibility-panel-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 2rem;
+        }
+
+        .eligibility-panel-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .eligible .eligibility-panel-icon {
+            background: rgba(16, 185, 129, 0.12);
+        }
+
+        .excluded .eligibility-panel-icon {
+            background: rgba(244, 63, 94, 0.12);
+        }
+
+        .eligibility-panel-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .eligibility-panel-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .eligibility-list {
+            list-style: none;
+        }
+
+        .eligibility-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 0.85rem 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .eligibility-list li:last-child {
+            border-bottom: none;
+        }
+
+        .eligibility-list li .icon {
+            font-size: 1.1rem;
+            margin-top: 2px;
+            min-width: 20px;
+        }
+
+        .eligible .eligibility-list li .icon { color: var(--accent-emerald); }
+        .excluded .eligibility-list li .icon { color: var(--accent-rose); }
+
+        /* ===== PAYMENT SECTION ===== */
+        .payment-section {
+            background: var(--primary-deep);
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .payment-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse 600px 400px at 10% 90%, rgba(245, 158, 11, 0.08) 0%, transparent 70%),
+                radial-gradient(ellipse 500px 300px at 90% 10%, rgba(37, 99, 235, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .payment-section .section-title { color: #fff; }
+        .payment-section .section-subtitle { color: rgba(255,255,255,0.6); }
+        .payment-section .section-label { color: var(--accent-gold-light); }
+
+        .payment-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            position: relative;
+            z-index: 1;
+            flex-wrap: wrap;
+        }
+
+        .payment-step {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            flex: 1;
+            min-width: 200px;
+            max-width: 280px;
+        }
+
+        .payment-step-number {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin: 0 auto 1rem;
+            position: relative;
+        }
+
+        .payment-step:nth-child(1) .payment-step-number {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--accent-gold-light);
+            border: 2px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .payment-step:nth-child(3) .payment-step-number {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--accent-emerald);
+            border: 2px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .payment-step:nth-child(5) .payment-step-number {
+            background: rgba(37, 99, 235, 0.15);
+            color: var(--primary-glow);
+            border: 2px solid rgba(37, 99, 235, 0.3);
+        }
+
+        .payment-step h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .payment-step .amount {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--accent-gold-light);
+            margin-bottom: 0.25rem;
+        }
+
+        .payment-step p {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
+            line-height: 1.6;
+        }
+
+        .payment-connector {
+            display: flex;
+            align-items: center;
+            color: rgba(255,255,255,0.2);
+            font-size: 1.5rem;
+            padding: 0 0.5rem;
+        }
+
+        .payment-total {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2.5rem;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: var(--radius-xl);
+            position: relative;
+            z-index: 1;
+        }
+
+        .payment-total-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.5);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .payment-total-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .payment-total-detail {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.5);
+            margin-top: 0.5rem;
+        }
+
+        .payment-features {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .payment-feature {
+            text-align: center;
+            padding: 1.5rem 1rem;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: var(--radius-lg);
+            transition: all 0.3s ease;
+        }
+
+        .payment-feature:hover {
+            background: rgba(255,255,255,0.08);
+            transform: translateY(-4px);
+        }
+
+        .payment-feature-icon {
+            font-size: 1.8rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .payment-feature h5 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .payment-feature p {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.45);
+        }
+
+        /* ===== CONCERNS SECTION ===== */
+        .concerns-section {
+            background: var(--surface-2);
+        }
+
+        .concerns-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .concern-card {
+            background: var(--surface-1);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            border: 1px solid var(--surface-4);
+            transition: all 0.4s ease;
+        }
+
+        .concern-card:hover {
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(37, 99, 235, 0.12);
+        }
+
+        .concern-header {
+            padding: 1.5rem 2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: background 0.3s ease;
+        }
+
+        .concern-header:hover {
+            background: var(--surface-2);
+        }
+
+        .concern-number {
+            width: 40px;
+            height: 40px;
+            min-width: 40px;
+            border-radius: var(--radius-sm);
+            background: var(--gradient-accent);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .concern-question {
+            flex: 1;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.5;
+        }
+
+        .concern-toggle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--surface-3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .concern-card.active .concern-toggle {
+            background: var(--primary);
+            color: #fff;
+            transform: rotate(180deg);
+        }
+
+        .concern-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .concern-card.active .concern-body {
+            max-height: 500px;
+        }
+
+        .concern-body-inner {
+            padding: 0 2rem 2rem 2rem;
+        }
+
+        .concern-answer {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .concern-answer-block {
+            padding: 1.25rem;
+            border-radius: var(--radius-md);
+        }
+
+        .concern-answer-block.clarification {
+            background: rgba(16, 185, 129, 0.05);
+            border: 1px solid rgba(16, 185, 129, 0.12);
+        }
+
+        .concern-answer-block.context {
+            background: rgba(245, 158, 11, 0.05);
+            border: 1px solid rgba(245, 158, 11, 0.12);
+        }
+
+        .concern-answer-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 0.5rem;
+        }
+
+        .concern-answer-block.clarification .concern-answer-label {
+            color: var(--accent-emerald);
+        }
+
+        .concern-answer-block.context .concern-answer-label {
+            color: var(--accent-amber);
+        }
+
+        .concern-answer-block p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ===== CHALLENGES SECTION ===== */
+        .challenges-section {
+            background: var(--surface-1);
+        }
+
+        .challenges-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .challenge-card {
+            background: var(--surface-2);
+            border: 1px solid var(--surface-4);
+            border-radius: var(--radius-lg);
+            padding: 1.75rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .challenge-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-accent);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .challenge-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: transparent;
+        }
+
+        .challenge-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .challenge-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .challenge-card h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .challenge-card p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ===== TRANSPARENCY SECTION ===== */
+        .transparency-section {
+            background: linear-gradient(135deg, var(--primary-deep) 0%, var(--primary-mid) 100%);
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .transparency-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(245, 158, 11, 0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .transparency-section .section-title { color: #fff; }
+        .transparency-section .section-subtitle { color: rgba(255,255,255,0.6); }
+        .transparency-section .section-label { color: var(--accent-gold-light); }
+
+        .source-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .source-card {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: var(--radius-lg);
+            padding: 1.75rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .source-card:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-4px);
+            border-color: rgba(255,255,255,0.15);
+        }
+
+        .source-card-icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .source-card h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .source-card p {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.5);
+            line-height: 1.6;
+        }
+
+        /* ===== ETHICS SECTION ===== */
+        .ethics-section {
+            background: var(--surface-2);
+        }
+
+        .ethics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .ethics-card {
+            background: var(--surface-1);
+            border: 1px solid var(--surface-4);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .ethics-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-xl);
+            border-color: transparent;
+        }
+
+        .ethics-card-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            margin: 0 auto 1.25rem;
+            background: var(--surface-3);
+        }
+
+        .ethics-card h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .ethics-card p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ===== SCALABILITY SECTION ===== */
+        .scalability-section {
+            background: var(--surface-1);
+        }
+
+        .scalability-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .scalability-card {
+            background: var(--surface-2);
+            border: 1px solid var(--surface-4);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .scalability-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: var(--shadow-xl);
+            border-color: rgba(37, 99, 235, 0.15);
+        }
+
+        .scalability-card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .scalability-card h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .scalability-card p {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .scalability-card .tag {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--primary);
+            background: rgba(37, 99, 235, 0.08);
+            padding: 4px 10px;
+            border-radius: 100px;
+            margin-top: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* ===== CREATOR SECTION ===== */
+        .creator-section {
+            background: var(--surface-2);
+            position: relative;
+        }
+
+        .creator-card {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--surface-1);
+            border-radius: var(--radius-2xl);
+            padding: 3rem;
+            box-shadow: var(--shadow-xl);
+            border: 1px solid var(--surface-4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .creator-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent-violet), var(--accent-gold), var(--accent-emerald));
+        }
+
+        .creator-content {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .creator-avatar {
+            width: 120px;
+            height: 120px;
+            min-width: 120px;
+            border-radius: 50%;
+            background: var(--gradient-hero);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .creator-avatar-initials {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #fff;
+        }
+
+        .creator-avatar-ring {
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            background: linear-gradient(135deg, var(--accent-gold), var(--primary), var(--accent-violet)) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            animation: rotate-ring 6s linear infinite;
+        }
+
+        @keyframes rotate-ring {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .creator-info {
+            flex: 1;
+        }
+
+        .creator-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .creator-title {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .creator-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .creator-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .creator-meta-item .icon {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-sm);
+            background: var(--surface-3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        .creator-meta-item a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .creator-meta-item a:hover {
+            color: var(--accent-violet);
+        }
+
+        /* ===== DISCLAIMER SECTION ===== */
+        .disclaimer-section {
+            background: var(--surface-1);
+            padding: 3rem 2rem;
+        }
+
+        .disclaimer-card {
+            max-width: 900px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.04), rgba(244, 63, 94, 0.04));
+            border: 1px solid rgba(245, 158, 11, 0.15);
+            border-radius: var(--radius-xl);
+            padding: 2rem 2.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1.25rem;
+        }
+
+        .disclaimer-icon {
+            font-size: 1.8rem;
+            min-width: 40px;
+            margin-top: 2px;
+        }
+
+        .disclaimer-content h4 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--accent-amber);
+            margin-bottom: 0.5rem;
+        }
+
+        .disclaimer-content p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--primary-deep);
+            color: rgba(255,255,255,0.6);
+            padding: 3rem 2rem 1.5rem;
+        }
+
+        .footer-container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .footer-brand-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--gradient-gold);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--primary-deep);
+        }
+
+        .footer-brand-text {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-gold-light);
+        }
+
+        .footer-bottom {
+            padding-top: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-bottom p {
+            font-size: 0.8rem;
+        }
+
+        .footer-orcid {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        .footer-orcid a {
+            color: var(--accent-gold-light);
+            text-decoration: none;
+        }
+
+        /* ===== SCROLL TO TOP ===== */
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--gradient-accent);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border: none;
+            box-shadow: var(--shadow-lg);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+            z-index: 999;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
+        }
+
+        /* ===== ANIMATIONS ===== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-in-delay-1 { transition-delay: 0.1s; }
+        .fade-in-delay-2 { transition-delay: 0.2s; }
+        .fade-in-delay-3 { transition-delay: 0.3s; }
+        .fade-in-delay-4 { transition-delay: 0.4s; }
+        .fade-in-delay-5 { transition-delay: 0.5s; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 3rem;
+            }
+
+            .hero-subtitle {
+                margin: 0 auto 2.5rem;
+            }
+
+            .hero-actions {
+                justify-content: center;
+            }
+
+            .hero-card-stack {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .purpose-cards,
+            .challenges-grid,
+            .source-grid,
+            .ethics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .scalability-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .payment-features {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 72px;
+                left: 0;
+                right: 0;
+                background: rgba(10, 22, 40, 0.98);
+                flex-direction: column;
+                padding: 1rem;
+                gap: 0;
+                border-bottom: 1px solid rgba(255,255,255,0.08);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                padding: 12px 16px;
+                width: 100%;
+                text-align: left;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .section {
+                padding: 4rem 1.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .purpose-cards,
+            .challenges-grid,
+            .source-grid,
+            .ethics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .scalability-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .eligibility-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .concern-answer {
+                grid-template-columns: 1fr;
+            }
+
+            .payment-flow {
+                flex-direction: column;
+            }
+
+            .payment-connector {
+                transform: rotate(90deg);
+            }
+
+            .payment-features {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .creator-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .creator-meta {
+                align-items: center;
+            }
+
+            .disclaimer-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-top {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .scalability-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .payment-total-value {
+                font-size: 2.5rem;
+            }
+
+            .payment-features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <a href="#" class="nav-brand">
+                <div class="nav-brand-icon">PK</div>
+                <div class="nav-brand-text">PM-<span>KISAN</span> Framework</div>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about" class="active">About</a></li>
+                <li><a href="#purpose">Purpose</a></li>
+                <li><a href="#eligibility">Eligibility</a></li>
+                <li><a href="#payment">Payment</a></li>
+                <li><a href="#concerns">FAQs</a></li>
+                <li><a href="#challenges">Challenges</a></li>
+                <li><a href="https://pmkisan.gov.in/" target="_blank" rel="noopener" class="nav-cta">Official Portal ↗</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-grid-pattern"></div>
+        <div class="hero-particles" id="heroParticles"></div>
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="hero-badge-dot"></span>
+                    Open-Source Policy Framework
+                </div>
+                <h1 class="hero-title">
+                    PM-KISAN<br>
+                    Policy <span class="highlight">Clarification</span><br>
+                    Framework
+                </h1>
+                <p class="hero-subtitle">
+                    A structured, non-partisan framework for understanding PM-KISAN eligibility criteria, payment structure, and implementation — based solely on official government guidelines.
+                </p>
+                <div class="hero-actions">
+                    <a href="#about" class="btn btn-primary">
+                        Explore Framework ↓
+                    </a>
+                    <a href="#eligibility" class="btn btn-secondary">
+                        Check Eligibility
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-card-stack">
+                    <div class="hero-stat-card">
+                        <div class="stat-card-header">
+                            <div class="stat-card-icon gold">💰</div>
+                            <div>
+                                <div class="stat-card-label">Annual Income Support</div>
+                                <div class="stat-card-value"><span class="currency">₹</span>6,000</div>
+                            </div>
+                        </div>
+                        <div class="stat-card-detail">Direct Benefit Transfer to beneficiary accounts</div>
+                        <div class="stat-card-bar"><div class="stat-card-bar-fill gold"></div></div>
+                    </div>
+                    <div class="hero-stat-card">
+                        <div class="stat-card-header">
+                            <div class="stat-card-icon emerald">📅</div>
+                            <div>
+                                <div class="stat-card-label">Payment Frequency</div>
+                                <div class="stat-card-value">3 Installments</div>
+                            </div>
+                        </div>
+                        <div class="stat-card-detail">₹2,000 each, credited every 4 months</div>
+                        <div class="stat-card-bar"><div class="stat-card-bar-fill emerald"></div></div>
+                    </div>
+                    <div class="hero-stat-card">
+                        <div class="stat-card-header">
+                            <div class="stat-card-icon blue">🏛️</div>
+                            <div>
+                                <div class="stat-card-label">Implemented By</div>
+                                <div class="stat-card-value" style="font-size:1.1rem;">Ministry of Agriculture</div>
+                            </div>
+                        </div>
+                        <div class="stat-card-detail">Government of India — Farmers Welfare Division</div>
+                        <div class="stat-card-bar"><div class="stat-card-bar-fill blue"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section about-section" id="about">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-label">
+                    <span class="section-label-line"></span>
+                    About the Scheme
+                    <span class="section-label-line"></span>
+                </div>
+                <h2 class="section-title fade-in">What is PM-KISAN?</h2>
+                <p class="section-subtitle fade-in">Pradhan Mantri Kisan Samman Nidhi — a Government of India income support scheme for eligible landholding farmer families.</p>
+            </div>
+            <div class="about-grid">
+                <div class="about-content fade-in">
+                    <h3>Empowering India's Farming Community</h3>
+                    <p>
+                        PM-KISAN provides financial support directly to eligible farmer families across India. The scheme operates based on state-verified landholding records submitted to the central government, ensuring transparent and systematic disbursement.
+                    </p>
+                    <div class="about-features">
+                        <div class="about-feature-item">
+                            <div class="about-feature-icon gold">💵</div>
+                            <div class="about-feature-text">
+                                <h4>₹6,000 Annual Support</h4>
+                                <p>Direct income support provided per year to eligible beneficiary families.</p>
+                            </div>
+                        </div>
+                        <div class="about-feature-item">
+                            <div class="about-feature-icon emerald">🏦</div>
+                            <div class="about-feature-text">
+                                <h4>Direct Benefit Transfer</h4>
+                                <p>Funds credited directly to verified bank accounts linked with Aadhaar.</p>
+                            </div>
+                        </div>
+                        <div class="about-feature-item">
+                            <div class="about-feature-icon blue">📋</div>
+                            <div class="about-feature-text">
+                                <h4>State-Verified Records</h4>
+                                <p>Beneficiaries identified through state land records and verification processes.</p>
+                            </div>
+                        </div>
+                        <div class="about-feature-item">
+                            <div class="about-feature-icon violet">🇮🇳</div>
+                            <div class="about-feature-text">
+                                <h4>Pan-India Coverage</h4>
+                                <p>Implemented by the Ministry of Agriculture and Farmers Welfare nationwide.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-visual fade-in fade-in-delay-2">
+                    <div class="about-info-card">
+                        <h3>Key Scheme Highlights</h3>
+                        <ul class="about-info-list">
+                            <li><span class="check">✓</span> ₹6,000 per year to eligible beneficiaries</li>
+                            <li><span class="check">✓</span> Paid in three equal installments of ₹2,000</li>
+                            <li><span class="check">✓</span> Transferred via Direct Benefit Transfer (DBT)</li>
+                            <li><span class="check">✓</span> Aadhaar linkage generally required</li>
+                            <li><span class="check">✓</span> State-verified landholding records used</li>
+                            <li><span class="check">✓</span> Payment status verifiable on official portal</li>
+                            <li><span class="check">✓</span> Eligibility subject to official updates</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Purpose Section -->
+    <section class="section purpose-section" id="purpose">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-label">
+                    <span class="section-label-line"></span>
+                    Framework Purpose
+                    <span class="section-label-line"></span>
+                </div>
+                <h2 class="section-title fade-in">Why This Framework Exists</h2>
+                <p class="section-subtitle fade-in">Improving citizen understanding of PM-KISAN through structured, non-partisan policy clarification.</p>
+            </div>
+            <div class="purpose-cards">
+                <div class="purpose-card fade-in fade-in-delay-1">
+                    <div class="purpose-card-icon">📖</div>
+                    <h3>Simple Language</h3>
+                    <p>Explaining eligibility rules in clear, accessible language that any citizen can understand without legal expertise.</p>
+                </div>
+                <div class="purpose-card fade-in fade-in-delay-2">
+                    <div class="purpose-card-icon">✅</div>
+                    <h3>Facts Over Assumptions</h3>
+                    <p>Separating verified facts from assumptions and clearly distinguishing between official policy and common misunderstandings.</p>
+                </div>
+                <div class="purpose-card fade-in fade-in-delay-3">
+                    <div class="purpose-card-icon">📜</div>
+                    <h3>Clause-Based References</h3>
+                    <p>Providing references to official guidelines so users can verify information independently through authoritative sources.</p>
+                </div>
+                <div class="purpose-card fade-in fade-in-delay-4">
+                    <div class="purpose-card-icon">🤝</div>
+                    <h3>Respectful Discourse</h3>
+                    <p>Addressing common concerns respectfully without dismissing legitimate questions about scheme implementation.</p>
+                </div>
+                <div class="purpose-card fade-in fade-in-delay-5">
+                    <div class="purpose-card-icon">🔍</div>
+                    <h3>Acknowledging Challenges</h3>
+                    <p>Transparently recognizing documented implementation challenges reported across various states and regions.</p>
+                </div>
+                <div class="purpose-card fade-in fade-in-delay-5">
+                    <div class="purpose-card-icon">🌐</div>
+                    <h3>Official Verification</h3>
+                    <p>Encouraging users to verify all information through official government portals and authorized notifications.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Eligibility Section -->
+    <section class="section eligibility-section" id="eligibility">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-label">
+                    <span class="section-label-line"></span>
+                    Eligibility Criteria
+                    <span class="section-label-line"></span>
+                </div>
+                <h2 class="section-title fade-in">Who Qualifies for PM-KISAN?</h2>
+                <p class="section-subtitle fade-in">Based on official operational guidelines — eligibility is subject to official updates and periodic revisions.</p>
+            </div>
+            <div class="eligibility-grid">
+                <div class="eligibility-panel eligible fade-in">
+                    <div class="eligibility-panel-header">
+                        <div class="eligibility-panel-icon">✅</div>
+                        <div>
+                            <div class="eligibility-panel-title">Eligible Beneficiaries</div>
+                            <div class="eligibility-panel-subtitle">Generally include the following</div>
+                        </div>
+                    </div>
+                    <ul class="eligibility-list">
+                        <li>
+                            <span class="icon">✓</span>
+                            <span>Landholding farmer families as per official records</span>
+                        </li>
+                        <li>
+                            <span class="icon">✓</span>
+                            <span>Beneficiaries identified through state land records</span>
+                        </li>
+                        <li>
+                            <span class="icon">✓</span>
+                            <span>Verified data submitted by state governments to the centre</span>
+                        </li>
+                        <li>
+                            <span class="icon">✓</span>
+                            <span>Farmers with valid Aadhaar and bank account linkage</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="eligibility-panel excluded fade-in fade-in-delay-2">
+                    <div class="eligibility-panel-header">
+                        <div class="eligibility-panel-icon">✕</div>
+                        <div>
+                            <div class="eligibility-panel-title">Exclusion Categories</div>
+                            <div class="eligibility-panel-subtitle">Typically excluded from the scheme</div>
+                        </div>
+                    </div>
+                    <ul class="eligibility-list">
+                        <li>
+                            <span class="icon">✕</span>
+                            <span>Institutional landholders</span>
+                        </li>
+                        <li>
+                            <span class="icon">✕</span>
+                            <span>Holders of constitutional posts</span>
+                        </li>
+                        <li>
+                            <span class="icon">✕</span>
+                            <span>Income tax payers (as per applicable criteria)</span>
+                        </li>
+                        <li>
+                            <span class="icon">✕</span>
+                            <span>Serving or retired government officers above specified levels</span>
+                        </li>
+                        <li>
+                            <span class="icon">✕</span>
+                            <span>Professionals — doctors, engineers, lawyers (as defined in guidelines)</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Section -->
+    <section class="section payment-section" id="payment">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-label">
+                    <span class="section-label-line"></span>
+                    Payment Structure
+                    <span class="section-label-line"></span>
+                </div>
+                <h2 class="section-title fade-in">How Payments Are Structured</h2>
+                <p class="section-subtitle fade-in">Annual income support of ₹6,000 disbursed via Direct Benefit Transfer in three equal installments.</p>
+            </div>
+
+            <div class="payment-flow fade-in">
+                <div class="payment-step">
+                    <div class="payment-step-number">1</div>
+                    <h4>Installment I</h4>
+                    <div class="amount">₹2,000</div>
+                    <p>April – July cycle</p>
+                </div>
+                <div class="payment-connector">→</div>
+                <div class="payment-step">
+                    <div class="payment-step-number">2</div>
+                    <h4>Installment II</h4>
+                    <div class="amount">₹2,000</div>
+                    <p>August – November cycle</p>
+                </div>
+                <div class="payment-connector">→</div>
+                <div class="payment-step">
+                    <div class="payment-step-number">3</div>
+                    <h4>Installment III</h4>
+                    <div class="amount">₹2,000</div>
+                    <p>December – March cycle</p>
+                </div>
+            </div>
+
+            <div class="payment-total fade-in">
+                <div class="payment-total-label">Total Annual Support</div>
+                <div class="payment-total-value">₹6,000</div>
+                <div class="payment-total-detail">Per eligible beneficiary family per year via DBT</div>
+            </div>
+
+            <div class="payment-features fade-in">
+                <div class="payment-feature">
+                    <div class="payment-feature-icon">🏦</div>
+                    <h5>Direct Transfer</h5>
+                    <p>Via DBT to bank accounts</p>
+                </div>
+                <div class="payment-feature">
+                    <div class="payment-feature-icon">🔗</div>
+                    <h5>Aadhaar Linked</h5>
+                    <p>Mandatory Aadhaar linkage</p>
+                </div>
+                <div class="payment-feature">
+                    <div class="payment-feature-icon">🔎</div>
+                    <h5>Verifiable Status</h5>
+                    <p>Track via official portal</p>
+                </div>
+                <div class="payment-feature">
+                    <div class="payment-feature-icon">📊</div>
+                    <h5>State Validated</h5>
+                    <p>Central approval process</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Concerns Section -->
+    <section class="section concerns-section" id="concerns">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-label">
+                    <span class="section-label-line"></span>
+                    Common Concerns
+                    <span class="section-label-line"></span>
+                </div>
+                <h2 class="section-title fade-in">Concerns & Policy Clarifications</h2>
+                <p class="section-subtitle fade-in">Addressing frequently raised concerns with factual policy clarifications and context.</p>
+            </div>
+            <div class="concerns-grid">
+                <div class="concern-card active fade-in">
+                    <div class="concern-header" onclick="toggleConcern(this)">
+                        <div class="concern-number">01</div>
+                        <div class="concern-question">"PM-KISAN excludes small or marginal farmers."</div>
+                        <div class="concern-toggle">▼</div>
+                    </div>
+                    <div class="concern-body">
+                        <div class="concern-body-inner">
+                            <div class="concern-answer">
+                                <div class="concern-answer-block clarification">
+                                    <div class="concern-answer-label">📋 Policy Clarification</div>
+                                    <p>Eligibility is based on recorded landholding ownership rather than land size category, subject to applicable guidelines and revisions.</p>
+                                </div>
+                                <div class="concern-answer-block context">
+                                    <div class="concern-answer-label">💡 Where Confusion May Arise</div>
+                                    <p>Land record discrepancies, inheritance disputes, or digitization delays can create the impression of exclusion when the root cause is administrative.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="concern-card fade-in fade-in-delay-1">
+                    <div class="concern-header" onclick="toggleConcern(this)">
+                        <div class="concern-number">02</div>
+                        <div class="concern-question">"Funds do not reach real beneficiaries."</div>
+                        <div class="concern-toggle">▼</div>
+                    </div>
+                    <div class="concern-body">
+                        <div class="concern-body-inner">
+                            <div class="concern-answer">
+                                <div class="concern-answer-block clarification">
+                                    <div class="concern-answer-label">📋 Policy Clarification</div>
+                                    <p>Payments are processed through Direct Benefit Transfer to verified bank accounts linked with beneficiary records.</p>
+                                </div>
+                                <div class="concern-answer-block context">
+                                    <div class="concern-answer-label">💡 Documented Challenges</div>
+                                    <p>Aadhaar mismatches, banking errors, incorrect account details, or delays in state-level data validation can cause payment failures or delays.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="concern-card fade-in fade-in-delay-2">
+                    <div class="concern-header" onclick="toggleConcern(this)">
+                        <div class="concern-number">03</div>
+                        <div class="concern-question">"Beneficiary selection lacks transparency."</div>
+                        <div class="concern-toggle">▼</div>
+                    </div>
+                    <div class="concern-body">
+                        <div class="concern-body-inner">
+                            <div class="concern-answer">
+                                <div class="concern-answer-block clarification">
+                                    <div class="concern-answer-label">📋 Policy Clarification</div>
+                                    <p>States are responsible for identifying eligible beneficiaries based on land records and submitting verified lists to the central government.</p>
+                                </div>
+                                <div class="concern-answer-block context">
+                                    <div class="concern-answer-label">💡 Ground Reality</div>
+                                    <p>Data accuracy depends on local land record systems and timely updates. Variations in administrative capacity across states affect the quality of beneficiary lists.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Challenges Section -->
+    <section class="section challenges-section" id="challenges">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-label">
+                    <span class="section-label-line"></span>
+                    Implementation Challenges
+                    <span class="section-label-line"></span>
+                </div>
+                <h2 class="section-title fade-in">Documented Challenges</h2>
+                <p class="section-subtitle fade-in">Publicly reported implementation issues that can vary by state and administrative capacity.</p>
+            </div>
+            <div class="challenges-grid">
+                <div class="challenge-card fade-in fade-in-delay-1">
+                    <div class="challenge-icon">🗺️</div>
+                    <h4>Incomplete Land Record Digitization</h4>
+                    <p>Many states still have partially digitized land records, creating gaps in beneficiary identification.</p>
+                </div>
+                <div class="challenge-card fade-in fade-in-delay-2">
+                    <div class="challenge-icon">⌨️</div>
+                    <h4>Data Entry Errors</h4>
+                    <p>Manual data entry processes can introduce errors in names, account numbers, and other critical fields.</p>
+                </div>
+                <div class="challenge-card fade-in fade-in-delay-3">
+                    <div class="challenge-icon">🔗</div>
+                    <h4>Aadhaar-Bank Linkage Issues</h4>
+                    <p>Mismatches between Aadhaar details and bank records can cause payment failures or redirections.</p>
+                </div>
+                <div class="challenge-card fade-in fade-in-delay-1">
+                    <div class="challenge-icon">⏳</div>
+                    <h4>Delays in State Verification</h4>
+                    <p>Varying state-level processing timelines affect the speed at which eligible farmers receive payments.</p>
+                </div>
+                <div class="challenge-card fade-in fade-in-delay-2">
+                    <div class="challenge-icon">👥</div>
+                    <h4>Beneficiary Duplication</h4>
+                    <p>Detection and removal of duplicate entries remains an ongoing data quality challenge.</p>
+                </div>
+                <div class="challenge-card fade-in fade-in-delay-3">
+                    <div class="challenge-icon">📊</div>
+                    <h4>Administrative Capacity</h4>
+                    <p>Implementation quality varies based on local governance infrastructure and technical capabilities.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transparency Section -->
+    <section class="section transparency-section" id="transparency">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-label">
+                    <span class="section-label-line"></span>
+                    Sources & Transparency
+                    <span class="section-label-line"></span>
+                </div>
+                <h2 class="section-title fade-in">Information Sources</h2>
+                <p class="section-subtitle fade-in">All information is derived from publicly available official government sources.</p>
+            </div>
+            <div class="source-grid">
+                <div class="source-card fade-in fade-in-delay-1">
+                    <div class="source-card-icon">🏛️</div>
+                    <h4>Ministry Notifications</h4>
+                    <p>Ministry of Agriculture and Farmers Welfare official notifications and circulars.</p>
+                </div>
+                <div class="source-card fade-in fade-in-delay-2">
+                    <div class="source-card-icon">📜</div>
+                    <h4>Operational Guidelines</h4>
+                    <p>Official PM-KISAN operational guidelines published by the Government of India.</p>
+                </div>
+                <div class="source-card fade-in fade-in-delay-3">
+                    <div class="source-card-icon">📊</div>
+                    <h4>Budget Documents</h4>
+                    <p>Union Budget allocations and expenditure reports related to the PM-KISAN scheme.</p>
+                </div>
+                <div class="source-card fade-in fade-in-delay-1">
+                    <div class="source-card-icon">🏛️</div>
+                    <h4>Parliamentary Responses</h4>
+                    <p>Answers to parliamentary questions providing scheme-related data and updates.</p>
+                </div>
+                <div class="source-card fade-in fade-in-delay-2">
+                    <div class="source-card-icon">📰</div>
+                    <h4>Government Releases</h4>
+                    <p>Press releases and public information bulletins from authorized government channels.</p>
+                </div>
+                <div class="source-card fade-in fade-in-delay-3">
+                    <div class="source-card-icon">🌐</div>
+                    <h4>Official Portal</h4>
+                    <p>PM-KISAN official website for beneficiary status, payment tracking, and scheme details.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ethics Section -->
+    <section class="section ethics-section" id="ethics">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-label">
+                    <span class="section-label-line"></span>
+                    Ethical Principles
+                    <span class="section-label-line"></span>
+                </div>
+                <h2 class="section-title fade-in">Framework Standards</h2>
+                <p class="section-subtitle fade-in">This framework adheres to strict ethical standards ensuring objectivity and reliability.</p>
+            </div>
+            <div class="ethics-grid">
+                <div class="ethics-card fade-in fade-in-delay-1">
+                    <div class="ethics-card-icon">⚖️</div>
+                    <h4>Non-Partisan</h4>
+                    <p>Strictly non-partisan policy clarification without political advocacy or bias.</p>
+                </div>
+                <div class="ethics-card fade-in fade-in-delay-2">
+                    <div class="ethics-card-icon">🎯</div>
+                    <h4>No Persuasive Framing</h4>
+                    <p>Information presented without persuasive framing or promotional language.</p>
+                </div>
+                <div class="ethics-card fade-in fade-in-delay-3">
+                    <div class="ethics-card-icon">📐</div>
+                    <h4>Fact & Interpretation</h4>
+                    <p>Clear separation between verified facts and interpretive commentary.</p>
+                </div>
+                <div class="ethics-card fade-in fade-in-delay-1">
+                    <div class="ethics-card-icon">🔓</div>
+                    <h4>Transparent Limitations</h4>
+                    <p>Open acknowledgment of data limitations and information gaps.</p>
+                </div>
+                <div class="ethics-card fade-in fade-in-delay-2">
+                    <div class="ethics-card-icon">🔍</div>
+                    <h4>Independent Verification</h4>
+                    <p>Actively encouraging readers to verify all claims through official sources.</p>
+                </div>
+                <div class="ethics-card fade-in fade-in-delay-3">
+                    <div class="ethics-card-icon">📖</div>
+                    <h4>Open Source</h4>
+                    <p>Fully open-source educational project promoting civic understanding.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scalability Section -->
+    <section class="section scalability-section" id="scalability">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-label">
+                    <span class="section-label-line"></span>
+                    Scalability
+                    <span class="section-label-line"></span>
+                </div>
+                <h2 class="section-title fade-in">Adaptable Architecture</h2>
+                <p class="section-subtitle fade-in">The clarification framework can be adapted for other Government of India schemes — building reusable civic policy infrastructure.</p>
+            </div>
+            <div class="scalability-grid">
+                <div class="scalability-card fade-in fade-in-delay-1">
+                    <div class="scalability-card-icon">🏠</div>
+                    <h4>PM Awas Yojana</h4>
+                    <p>Housing for all — eligibility and subsidy clarification framework.</p>
+                    <span class="tag">Adaptable</span>
+                </div>
+                <div class="scalability-card fade-in fade-in-delay-2">
+                    <div class="scalability-card-icon">🏥</div>
+                    <h4>Ayushman Bharat</h4>
+                    <p>Health coverage — benefits and enrollment clarification framework.</p>
+                    <span class="tag">Adaptable</span>
+                </div>
+                <div class="scalability-card fade-in fade-in-delay-3">
+                    <div class="scalability-card-icon">💧</div>
+                    <h4>Jal Jeevan Mission</h4>
+                    <p>Water supply — implementation and coverage clarification framework.</p>
+                    <span class="tag">Adaptable</span>
+                </div>
+                <div class="scalability-card fade-in fade-in-delay-4">
+                    <div class="scalability-card-icon">🌾</div>
+                    <h4>Agricultural Schemes</h4>
+                    <p>PM-KISAN related agricultural initiatives and supplementary programs.</p>
+                    <span class="tag">Adaptable</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Creator Section -->
+    <section class="section creator-section" id="creator">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-label">
+                    <span class="section-label-line"></span>
+                    Creator
+                    <span class="section-label-line"></span>
+                </div>
+                <h2 class="section-title fade-in">About the Creator</h2>
+            </div>
+            <div class="creator-card fade-in">
+                <div class="creator-content">
+                    <div class="creator-avatar">
+                        <div class="creator-avatar-ring"></div>
+                        <div class="creator-avatar-initials">KC</div>
+                    </div>
+                    <div class="creator-info">
+                        <div class="creator-name">Kallol Chakrabarti</div>
+                        <div class="creator-title">Global Independent Researcher</div>
+                        <div class="creator-meta">
+                            <div class="creator-meta-item">
+                                <div class="icon">🆔</div>
+                                <span>ORCID: <a href="https://orcid.org/0009-0007-4971-8936" target="_blank" rel="noopener">0009-0007-4971-8936</a></span>
+                            </div>
+                            <div class="creator-meta-item">
+                                <div class="icon">✉️</div>
+                                <span><a href="mailto:kallolchitralimagicpen@gmail.com">kallolchitralimagicpen@gmail.com</a></span>
+                            </div>
+                            <div class="creator-meta-item">
+                                <div class="icon">📄</div>
+                                <span>Open-source civic policy clarification infrastructure</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Disclaimer Section -->
+    <section class="disclaimer-section">
+        <div class="disclaimer-card fade-in">
+            <div class="disclaimer-icon">⚠️</div>
+            <div class="disclaimer-content">
+                <h4>Important Disclaimer</h4>
+                <p>
+                    This is an independent open-source educational project and is <strong>not affiliated with the Government of India</strong>. Scheme provisions may change through official notifications. Always consult authorized government sources — including the <a href="https://pmkisan.gov.in/" target="_blank" rel="noopener" style="color: var(--primary); font-weight: 600;">official PM-KISAN portal</a> — for the most current and accurate information.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <div class="footer-brand-icon">PK</div>
+                    <div class="footer-brand-text">PM-KISAN Policy Clarification Framework</div>
+                </div>
+                <ul class="footer-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#eligibility">Eligibility</a></li>
+                    <li><a href="#payment">Payment</a></li>
+                    <li><a href="#concerns">FAQs</a></li>
+                    <li><a href="#creator">Creator</a></li>
+                    <li><a href="https://pmkisan.gov.in/" target="_blank" rel="noopener">Official Portal ↗</a></li>
+                </ul>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 PM-KISAN Policy Clarification Framework. Open-source educational project.</p>
+                <div class="footer-orcid">
+                    Created by <strong>Kallol Chakrabarti</strong> · ORCID: <a href="https://orcid.org/0009-0007-4971-8936" target="_blank" rel="noopener">0009-0007-4971-8936</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top -->
+    <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">↑</button>
+
+    <script>
+        // Hamburger Menu
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile nav on link click
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Scroll to Top
+        const scrollTopBtn = document.getElementById('scrollTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Concern accordion
+        function toggleConcern(header) {
+            const card = header.parentElement;
+            const allCards = document.querySelectorAll('.concern-card');
+            allCards.forEach(c => {
+                if (c !== card) c.classList.remove('active');
+            });
+            card.classList.toggle('active');
+        }
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Generate hero particles
+        const particlesContainer = document.getElementById('heroParticles');
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.width = (Math.random() * 4 + 2) + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.animationDuration = (Math.random() * 15 + 10) + 's';
+            particle.style.animationDelay = (Math.random() * 10) + 's';
+            particle.style.opacity = Math.random() * 0.3 + 0.1;
+            particlesContainer.appendChild(particle);
+        }
+
+        // Active nav link on scroll
+        const sections = document.querySelectorAll('section[id]');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                if (window.scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
